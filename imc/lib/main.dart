@@ -27,9 +27,34 @@ class _HomeState extends State<Home> {
   Widget build(BuildContext context) {
     return Scaffold(
       drawer: Drawer(
-
         child: ListView(
-
+          padding: EdgeInsets.zero,
+          children: const <Widget>[
+            DrawerHeader(
+              decoration: BoxDecoration(
+                color: Colors.blue,
+              ),
+              child: Text(
+                'MENU GESBOSS',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 24,
+                ),
+              ),
+            ),
+            ListTile(
+              leading: Icon(Icons.message),
+              title: Text('Messages'),
+            ),
+            ListTile(
+              leading: Icon(Icons.account_circle),
+              title: Text('Profile'),
+            ),
+            ListTile(
+              leading: Icon(Icons.settings),
+              title: Text('Settings'),
+            ),
+          ],
         ),
       ),
       appBar: AppBar(
@@ -50,24 +75,41 @@ class _HomeState extends State<Home> {
           child: Column(
             children: [
               Padding(
-                padding: EdgeInsets.only(right: 40, left: 20, bottom: 15),
-                child: TextFormField(
-                  inputFormatters: [maskFormatter],
-                  keyboardType: TextInputType.phone,
-                  controller: _controllerName,
-                  obscureText: false,
-                  decoration: InputDecoration(
-                      icon: Icon(Icons.person),
-                      labelText: "Nome"
-                  ),
-                  validator: (value){
-                    if(value == null || value.isEmpty){
-                    return "Informe seu nome..";
-                    }
-                    return null;
-                  },
+                padding: EdgeInsets.only(top: 20, right: 40, left: 20, bottom: 15),
+                child: Column(
+                  children: [
+                    Text.rich(
+                      TextSpan(
+                        text: 'Dólar Hoje:', // default text style
+                      ),
+                    ),
+                    Text.rich(
+                      TextSpan(
+                        text: "RS 5,69",
+                        style: TextStyle(fontWeight: FontWeight.bold)
+                      ),
+                    ),
+
+                    TextFormField(
+                      inputFormatters: [maskFormatter],
+                      keyboardType: TextInputType.phone,
+                      controller: _controllerName,
+                      obscureText: false,
+                      decoration: InputDecoration(
+                        icon: Icon(Icons.attach_money_rounded),
+                        labelText: "Valor:"
+                      ),
+                      validator: (value){
+                        if(value == null || value.isEmpty){
+                          return "Informe seu nome..";
+                        }
+                        return null;
+                      },
+                    ),
+                  ],
                 ),
               ),
+
               ElevatedButton(
                 onPressed: (){
                   if(_formKey.currentState.validate()){
@@ -75,9 +117,19 @@ class _HomeState extends State<Home> {
                       valor = _controllerName.value.text;
                     });
                   }
-                }, child: Text("Calcular")
+                }, child: Text("Calcular"),
               ),
-            ]
+              RichText(
+                text: TextSpan(
+                  text: 'R\$59,00',
+                  style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 60,
+                      color: Colors.black
+                  ),
+                ),
+              ),
+            ],
           ),
         )
       ),
